@@ -1,20 +1,35 @@
+# Class: supervisor
+#
+# Usage:
+#   include supervisor
+#
+#
+# TODO: configurations pass as parameters
 class supervisor {
 
-  # redhat: python-setuptools
-  # debian: python-setupdocs
-
-  $pkg_setuptools = 'python-setuptools'
+  # TODO: support debian installations
+  case $::osfamily {
+    redhat: {
+      $pkg_setuptools = 'python-setuptools'
+    }
+    # debian: {
+    #   $pkg_setuptools = 'python-setupdocs'
+    # }
+    default: { fail("ERROR: ${::osfamily} based systems are not supported!") }
+  }
 
   package { $pkg_setuptools: ensure => installed, }
 
+  # let's stick with v3.0b1 for now
   exec { 'easy_install-supervisor':
-    command => '/usr/bin/easy_install supervisor',
+    command => '/usr/bin/easy_install supervisor==3.0b1',
     creates => '/usr/bin/supervisord',
     user    => 'root',
     require => Package[$pkg_setuptools],
   }
 
   # install start/stop script
+  # TODO: debian support
   file { '/etc/init.d/supervisord':
     source => 'puppet:///modules/supervisor/redhat.supervisord',
     owner  => 'root',

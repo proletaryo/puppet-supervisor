@@ -1,3 +1,16 @@
+# Type: supervisor::program
+#
+# Usage: 
+#
+# supervisor::program { 'long-running-command':
+#   command        => '/path/to/command',
+#   directory      => '/tmp',
+#   user           => 'some-user',
+#   environment    => 'LIB=/path/to/lib,SOME_ENV=another_value',
+#   stdout_logfile => '/path/to/stdout.log',
+#   stderr_logfile => '/path/to/stderr.log',
+# }
+#
 define supervisor::program (
   $command,
   $ensure                   = present,
@@ -24,13 +37,13 @@ define supervisor::program (
   $environment              = undef,
   $umask                    = undef
 ) {
-  include supervisor
+  if ! defined(Class['supervisor']) { include supervisor }
 
   case $ensure {
     absent: {
       $autostart = false
-      $dir_ensure = 'absent'
       $dir_recurse = true
+      $dir_ensure = 'absent'
       $dir_force = true
       $service_ensure = 'stopped'
     }
