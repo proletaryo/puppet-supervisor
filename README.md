@@ -4,6 +4,10 @@ This puppet module automates installation/management of supervisord and programs
 
 NOTE: This will install supervisord v3.0b1. There are no RPM packages, as of the time of writing, for the supervisord 3.x so this modulle installs it using `easy_install`
 
+## Versioning
+
+This module adheres to [Semantic Versioning 2.0.0-rc.2](http://semver.org/).
+
 ## TODOs
   * Support for Ubuntu, only works for CentOS/AWS Linux for now
   * eventlisteners
@@ -13,7 +17,7 @@ NOTE: This will install supervisord v3.0b1. There are no RPM packages, as of the
 See supervisord manual on list of valid values [here](http://supervisord.org/configuration.html#program-x-section-settings).
 
 ## Usage
-
+<pre>
 supervisor::program { 'node-app':
   ensure      => present,
   enable      => true,
@@ -23,14 +27,10 @@ supervisor::program { 'node-app':
   user        => 'ec2-user',
   group       => 'ec2-user',
 }
-
+</pre>
 ## Dependencies
 
 None
-
-## Versioning
-
-This module adheres to [Semantic Versioning 2.0.0-rc.2](http://semver.org/).
 
 ## Inspiration
 
