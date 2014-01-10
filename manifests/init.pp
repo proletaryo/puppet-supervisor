@@ -3,9 +3,15 @@
 # Usage:
 #   include supervisor
 #
+#   class { 'supervisor':
+#     include_superlance => false,
+#   }
+#
 #
 # TODO: configurations pass as parameters
-class supervisor {
+class supervisor (
+  $include_superlance = true,
+) {
 
   # TODO: support debian installations
   case $::osfamily {
@@ -70,6 +76,15 @@ class supervisor {
     enable     => true,
     hasrestart => true,
     require    => File['/etc/supervisord.conf'],
+  }
+
+  if $include_superlance {
+    exec { 'easy_install-superlance':
+      command => '/usr/bin/easy_install superlance',
+      creates => '/usr/bin/memmon',
+      user    => 'root',
+      require => Exec['easy_install-supervisor'],
+    }
   }
 
 }
