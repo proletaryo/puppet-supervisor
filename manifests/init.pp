@@ -20,9 +20,9 @@ class supervisor {
 
   package { $pkg_setuptools: ensure => installed, }
 
-  # let's stick with v3.0b1 for now
+  # let's stick with v3.0 for now
   exec { 'easy_install-supervisor':
-    command => '/usr/bin/easy_install supervisor==3.0b1',
+    command => '/usr/bin/easy_install supervisor==3.0',
     creates => '/usr/bin/supervisord',
     user    => 'root',
     require => Package[$pkg_setuptools],
