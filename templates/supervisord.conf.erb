@@ -3,7 +3,7 @@ file=/var/run/supervisor.sock   ; (the path to the socket file)
 
 <% if @enable_http_inet_server -%>
 [inet_http_server]         ; inet (TCP) server enabled by default
-port=*:9001
+port=0.0.0.0:9001
 ;username=yourusername
 ;password=yourpassword
 <% end -%>
