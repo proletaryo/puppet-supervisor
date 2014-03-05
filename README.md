@@ -26,6 +26,7 @@ supervisor::program { 'node-app':
   environment => 'NODE_ENV=testing',
   user        => 'ec2-user',
   group       => 'ec2-user',
+  logdir_mode => '0770',
 }
 </pre>
 ## Dependencies

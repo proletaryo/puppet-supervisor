@@ -27,14 +27,14 @@ stdout_logfile=<%= @stdout_logfile %>
 stdout_logfile=/var/log/supervisor/<%= @name -%>/<%= @name -%>.out
 <% end -%>
 stdout_logfile_maxbytes=<%= @stdout_logfile_maxsize %>
-stdout_logfile_backups=<%= @stdout_logfile_keep %>
+stdout_logfile_backups=<%= @stdout_logfile_backups %>
 <% if @stderr_logfile -%>
 stderr_logfile=<%= @stderr_logfile %>
 <% else -%>
 stderr_logfile=/var/log/supervisor/<%= @name -%>/<%= @name -%>.err
 <% end -%>
 stderr_logfile_maxbytes=<%= @stderr_logfile_maxsize %>
-stderr_logfile_backups=<%= @stderr_logfile_keep %>
+stderr_logfile_backups=<%= @stderr_logfile_backups %>
 <% if @environment -%>
 environment=<%= @environment %>
 <% end -%>
