@@ -4,13 +4,15 @@
 #   include supervisor
 #
 #   class { 'supervisor':
-#     include_superlance => false,
+#     include_superlance      => false,
+#     enable_http_inet_server => true,
 #   }
 #
 #
 # TODO: configurations pass as parameters
 class supervisor (
-  $include_superlance = true,
+  $include_superlance       = true,
+  $enable_http_inet_server  = true,
 ) {
 
   # TODO: support debian installations
