@@ -89,19 +89,30 @@ define supervisor::program (
     notify  => Exec['supervisor::update'],
   }
 
+  # easy_install behaves differently in adding binary path
+  case $::osfamily {
+    redhat: {
+      $path_bin = '/usr/bin'
+    }
+    debian: {
+      $path_bin = '/usr/local/bin'
+    }
+    default: { fail("ERROR: ${::osfamily} based systems are not supported!") }
+  }
+
   service { "supervisor::${name}":
     ensure   => $service_ensure,
     provider => base,
-    restart  => "/usr/bin/supervisorctl restart ${process_name}",
-    start    => "/usr/bin/supervisorctl start ${process_name}",
-    status   => "/usr/bin/supervisorctl status | awk '/^${name}[: ]/{print \$2}' | grep '^RUNNING$'",
-    stop     => "/usr/bin/supervisorctl stop ${process_name}",
+    restart  => "${path_bin}/supervisorctl restart ${process_name}",
+    start    => "${path_bin}/supervisorctl start ${process_name}",
+    status   => "${path_bin}/supervisorctl status | awk '/^${name}[: ]/{print \$2}' | grep '^RUNNING$'",
+    stop     => "${path_bin}/supervisorctl stop ${process_name}",
     require  => File["/etc/supervisord.d/${name}.conf"],
   }
 
   if ! defined(Exec['supervisor::update']) {
     exec { 'supervisor::update':
-      command     => '/usr/bin/supervisorctl update',
+      command     => "${path_bin}/supervisorctl update",
       logoutput   => on_failure,
       refreshonly => true,
       require     => Service['supervisord'],

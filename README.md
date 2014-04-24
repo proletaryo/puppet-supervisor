@@ -4,12 +4,13 @@ This puppet module automates installation/management of supervisord and programs
 
 NOTE: This will install supervisord v3.0 + [superlance](https://github.com/Supervisor/superlance/blob/master/docs/index.rst) plugins. There are no RPM packages, as of the time of writing, for the supervisord 3.x so this modulle installs it using `easy_install`
 
+Tested on CentOS 6.4, Ubuntu 12.04 and AWS Linux.
+
 ## Versioning
 
 This module adheres to [Semantic Versioning 2.0.0-rc.2](http://semver.org/).
 
 ## TODOs
-  * Support for Ubuntu, only works for CentOS/AWS Linux for now
   * eventlisteners
 
 ## Parameters
