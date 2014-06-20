@@ -36,7 +36,8 @@ define supervisor::program (
   $stderr_logfile_maxsize   = '250MB',
   $stderr_logfile_backups   = 10,
   $environment              = undef,
-  $umask                    = undef
+  $umask                    = undef,
+  $conf_d                   = '/etc/supervisord.d',
 ) {
   if ! defined(Class['supervisor']) { include supervisor }
 
@@ -82,7 +83,7 @@ define supervisor::program (
     require => Class['supervisor'],
   }
 
-  file { "/etc/supervisord.d/${name}.conf":
+  file { "${conf_d}/${name}.conf":
     ensure  => $config_ensure,
     content => template('supervisor/program.conf.erb'),
     require => File["/var/log/supervisor/${name}"],
@@ -107,7 +108,7 @@ define supervisor::program (
     start    => "${path_bin}/supervisorctl start ${process_name}",
     status   => "${path_bin}/supervisorctl status | awk '/^${name}[: ]/{print \$2}' | grep '^RUNNING$'",
     stop     => "${path_bin}/supervisorctl stop ${process_name}",
-    require  => File["/etc/supervisord.d/${name}.conf"],
+    require  => File["${conf_d}/${name}.conf"],
   }
 
   if ! defined(Exec['supervisor::update']) {
