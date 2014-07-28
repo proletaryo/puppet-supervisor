@@ -31,6 +31,10 @@ class supervisor (
 
   package { $pkg_setuptools: ensure => installed, }
 
+  Exec {
+    path => '/usr/local/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin'
+  }
+
   # let's stick with v3.0 for now
   exec { 'easy_install-supervisor':
     command => '/usr/bin/easy_install supervisor==3.0',
