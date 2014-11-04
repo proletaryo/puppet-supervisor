@@ -2,7 +2,7 @@
 
 This puppet module automates installation/management of supervisord and programs that it will control.
 
-NOTE: This will install supervisord v3.0 + [superlance](https://github.com/Supervisor/superlance/blob/master/docs/index.rst) plugins. There are no RPM packages, as of the time of writing, for the supervisord 3.x so this modulle installs it using `easy_install`
+NOTE: This will install supervisord v3.x.x + [superlance](https://github.com/Supervisor/superlance/blob/master/docs/index.rst) plugins. There are no RPM packages, as of the time of writing, for new versions of supervisord so this modulle installs it using python's `pip`.
 
 Tested on CentOS 6.4, Ubuntu 12.04 and AWS Linux.
 
@@ -31,8 +31,7 @@ supervisor::program { 'node-app':
 }
 </pre>
 ## Dependencies
-
-None
+  * for RHEL based distros, this requires the EPEL repo.
 
 ## Inspiration
 

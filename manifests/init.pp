@@ -7,36 +7,36 @@
 #     include_superlance      => false,
 #     enable_http_inet_server => true,
 #   }
-#
-#
-# TODO: configurations pass as parameters
+
 class supervisor (
+  $version                  = '3.1.2',
   $include_superlance       = true,
-  $enable_http_inet_server  = true,
+  $enable_http_inet_server  = false,
 ) {
 
   case $::osfamily {
     redhat: {
-      $pkg_setuptools = 'python-setuptools'
-      $path_config    = '/etc'
-      $path_bin       = '/usr/bin'
+      if $::operatingsystem == 'Amazon' {
+        $pkg_setuptools = 'python26-pip'
+        $path_config    = '/etc'
+      }
+      else {
+        $pkg_setuptools = 'python-pip'
+        $path_config    = '/etc'
+      }
     }
     debian: {
-      $pkg_setuptools = 'python-setuptools'
+      $pkg_setuptools = 'python-pip'
       $path_config    = '/etc'
-      $path_bin       = '/usr/local/bin'
     }
     default: { fail("ERROR: ${::osfamily} based systems are not supported!") }
   }
 
   package { $pkg_setuptools: ensure => installed, }
 
-  # let's stick with v3.0 for now
-  exec { 'easy_install-supervisor':
-    command => '/usr/bin/easy_install supervisor==3.0',
-    creates => "${path_bin}/supervisord",
-    user    => 'root',
-    require => Package[$pkg_setuptools],
+  package { 'supervisor':
+    ensure   => '3.1.2',
+    provider => 'pip'
   }
 
   # install start/stop script
@@ -54,7 +54,7 @@ class supervisor (
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
-    require => Exec['easy_install-supervisor'],
+    require => Package['supervisor'],
   }
 
   file { "${path_config}/supervisord.conf":
@@ -63,15 +63,15 @@ class supervisor (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    require => Exec['easy_install-supervisor'],
+    require => Package['supervisor'],
     notify  => Service['supervisord'],
   }
 
   file { "${path_config}/supervisord.d":
-    ensure => 'directory',
-    owner => 'root',
-    group => 'root',
-    mode => '0755',
+    ensure  => 'directory',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
     require => File["${path_config}/supervisord.conf"],
   }
 
@@ -83,11 +83,10 @@ class supervisor (
   }
 
   if $include_superlance {
-    exec { 'easy_install-superlance':
-      command => '/usr/bin/easy_install superlance',
-      creates => "${path_bin}/memmon",
-      user    => 'root',
-      require => Exec['easy_install-supervisor'],
+    package { 'superlance':
+      ensure   => installed,
+      provider => 'pip',
+      require  => Package['supervisor'],
     }
   }
 
