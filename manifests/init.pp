@@ -4,12 +4,13 @@
 #   include supervisor
 #
 #   class { 'supervisor':
+#     version                 => '3.1.3',
 #     include_superlance      => false,
 #     enable_http_inet_server => true,
 #   }
 
 class supervisor (
-  $version                  = '3.1.2',
+  $version                  = '3.1.3',
   $include_superlance       = true,
   $enable_http_inet_server  = false,
 ) {
@@ -35,7 +36,7 @@ class supervisor (
   package { $pkg_setuptools: ensure => installed, }
 
   package { 'supervisor':
-    ensure   => '3.1.3',
+    ensure   => $version,
     provider => 'pip'
   }
 
