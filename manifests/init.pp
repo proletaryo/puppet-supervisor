@@ -35,7 +35,7 @@ class supervisor (
   package { $pkg_setuptools: ensure => installed, }
 
   package { 'supervisor':
-    ensure   => '3.1.2',
+    ensure   => '3.1.3',
     provider => 'pip'
   }
 
