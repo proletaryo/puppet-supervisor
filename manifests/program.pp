@@ -43,16 +43,10 @@ define supervisor::program (
   case $ensure {
     absent: {
       $autostart = false
-      $dir_recurse = true
-      $dir_ensure = 'absent'
-      $dir_force = true
       $service_ensure = 'stopped'
     }
     present: {
       $autostart = true
-      $dir_ensure = 'directory'
-      $dir_recurse = false
-      $dir_force = false
       $service_ensure = 'running'
 
       if $enable == true {
@@ -73,12 +67,10 @@ define supervisor::program (
   }
 
   file { "/var/log/supervisor/${name}":
-    ensure  => $dir_ensure,
+    ensure  => 'directory',
     owner   => $user,
     group   => $group,
     mode    => $logdir_mode, # '0750',
-    recurse => $dir_recurse,
-    force   => $dir_force,
     require => Class['supervisor'],
   }
 
