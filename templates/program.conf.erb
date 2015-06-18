@@ -41,3 +41,8 @@ environment=<%= @environment %>
 <% if @umask %>
 umask=<%= @umask %>
 <% end -%>
+<% if @crashmail %>
+[eventlistener:crashmail]
+command=crashmail -p <%= @processname %> -o <%= @subject_header %> -m <%= @mail_address %>
+events=PROCESS_STATE
+<% end -%>
