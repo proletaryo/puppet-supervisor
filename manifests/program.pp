@@ -36,7 +36,8 @@ define supervisor::program (
   $stderr_logfile_maxsize   = '250MB',
   $stderr_logfile_backups   = 10,
   $environment              = undef,
-  $umask                    = undef
+  $umask                    = undef,
+  $crashmail                = undef
 ) {
   if ! defined(Class['supervisor']) { include supervisor }
 
