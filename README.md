@@ -29,8 +29,10 @@ supervisor::program { 'node-app':
   group       => 'ec2-user',
   logdir_mode => '0770',
 }
+</pre>
 
-##Usage With Crashmail
+<pre>
+# enable crashmail
 supervisor::program { 'node-app':
   ensure      => present,
   enable      => true,
