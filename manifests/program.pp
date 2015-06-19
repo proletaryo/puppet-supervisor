@@ -82,7 +82,7 @@ define supervisor::program (
     notify  => Exec['supervisor::update'],
   }
 
-  # easy_install behaves differently in adding binary path
+  # Adapt binary path depending on osfamily
   case $::osfamily {
     redhat: {
       $path_bin = '/usr/bin'
