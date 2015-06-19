@@ -29,7 +29,25 @@ supervisor::program { 'node-app':
   group       => 'ec2-user',
   logdir_mode => '0770',
 }
+
+##Usage With Crashmail
+supervisor::program { 'node-app':
+  ensure      => present,
+  enable      => true,
+  command     => '/usr/bin/node /home/ec2-user/modules/app.js',
+  directory   => '/home/ec2-user/modules/',
+  environment => 'NODE_ENV=testing',
+  user        => 'ec2-user',
+  group       => 'ec2-user',
+  logdir_mode => '0770',
+  crashmail   => [
+     $processname     = 'app' ,
+     $subject_header  = 'My Project Name',
+     $mail_address    = 'myemail@example.com' ]
+}
+
 </pre>
+
 ## Dependencies
   * for RHEL based distros, this requires the EPEL repo.
 
