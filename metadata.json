@@ -1,0 +1,25 @@
+{
+  "name": "proletaryo-supervisor",
+  "version": "0.5.3",
+  "author": "proletaryo",
+  "license": "Apache-2.0",
+  "summary": "Module for installing supervisor in CentOS/AWS Linux/Debian/Ubuntu",
+  "source": "https://github.com/proletaryo/puppet-supervisor",
+  "project_page": "https://forge.puppetlabs.com/proletaryo/supervisor",
+  "issues_url": "https://github.com/proletaryo/puppet-supervisor/issues",
+  "tags": ["supervisor", "process control", "process management", "awslinux" ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Amazon",
+      "operatingsystemrelease":[ "2014.09", "2015.03" ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [ "6.4" ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [ "12.04" ]
+    }
+   ]
+}
