@@ -51,10 +51,10 @@ class supervisor (
   file { '/var/log/supervisor':
     ensure  => directory,
     purge   => true,
-    backup => false,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
+    backup  => false,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
     require => Package['supervisor'],
   }
 
