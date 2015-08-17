@@ -80,6 +80,7 @@ class supervisor (
     ensure     => running,
     enable     => true,
     hasrestart => true,
+    provider   => init,
     require    => File["${path_config}/supervisord.conf"],
   }
 
