@@ -13,6 +13,7 @@ class supervisor (
   $version                  = '3.1.3',
   $include_superlance       = true,
   $enable_http_inet_server  = false,
+  $minfds                   = '1024',
 ) {
 
   case $::osfamily {
