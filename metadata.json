@@ -7,6 +7,7 @@
   "source": "https://github.com/proletaryo/puppet-supervisor",
   "project_page": "https://forge.puppetlabs.com/proletaryo/supervisor",
   "issues_url": "https://github.com/proletaryo/puppet-supervisor/issues",
+  "dependencies": [],
   "tags": ["supervisor", "process control", "process management", "awslinux" ],
   "operatingsystem_support": [
     {
