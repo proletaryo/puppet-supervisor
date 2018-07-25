@@ -19,7 +19,7 @@ class supervisor (
   case $::osfamily {
     redhat: {
       if $::operatingsystem == 'Amazon' {
-        $pkg_setuptools = 'python26-pip'
+        $pkg_setuptools = 'python27-pip'
         $path_config    = '/etc'
       }
       else {
