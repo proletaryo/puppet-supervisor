@@ -23,7 +23,12 @@ class supervisor (
         $path_config    = '/etc'
       }
       else {
-        $pkg_setuptools = 'python-pip'
+        if (versioncmp($::operatingsystemmajrelease, '6') == 1 ) {
+          $pkg_setuptools = 'python2-pip'
+        }
+        else {
+          $pkg_setuptools = 'python-pip'
+        }
         $path_config    = '/etc'
       }
     }
